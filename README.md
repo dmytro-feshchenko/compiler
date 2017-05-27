@@ -1,5 +1,5 @@
 # Building a compiler in Go programming language
-This project was developed for building a compiler for own programming language.
+This project was developed for building a compiler for own programming language (Beaver language).
 ## Done features
 [Still in development]
 ## Planned features
@@ -36,7 +36,7 @@ git clone https://github.com/technoboom/compiler
 To run all tests in the project use command: `go test ./...`  
 To test only lexer: `go test ./lexer`
 
-## Quick into into Beaver language:
+## Quick intro into Beaver language:
 ### Syntax:
 Beaver language supports C-like syntax.
 Basic rules:
