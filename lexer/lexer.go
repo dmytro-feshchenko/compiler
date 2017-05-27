@@ -38,6 +38,8 @@ func (l *Lexer) readChar() {
 func (l *Lexer) NextToken() token.Token {
 	var tok token.Token
 
+	l.skipWhitespace()
+
 	switch l.character {
 	case '=':
 		tok = newToken(token.ASSIGN, l.character)
@@ -64,6 +66,21 @@ func (l *Lexer) NextToken() token.Token {
 	case 0:
 		tok.Literal = ""
 		tok.Type = token.EOF
+	default:
+		if isLetter(l.character) {
+			// read keyword or identifier
+			tok.Literal = l.readIdentifier()
+			tok.Type = token.LookupIdent(tok.Literal)
+			return tok
+		}
+		if isDigit(l.character) {
+			// read number
+			tok.Type = token.INT
+			tok.Literal = l.readNumber()
+			return tok
+		}
+		// illegal token
+		tok = newToken(token.ILLEGAL, l.character)
 	}
 	l.readChar()
 	return tok
@@ -72,4 +89,41 @@ func (l *Lexer) NextToken() token.Token {
 // newToken - creates new token with given type and literal
 func newToken(tokenType token.Type, character byte) token.Token {
 	return token.Token{Type: tokenType, Literal: string(character)}
+}
+
+func (l *Lexer) readIdentifier() string {
+	position := l.position
+	for isLetter(l.character) {
+		l.readChar()
+	}
+	return l.input[position:l.position]
+}
+
+// Ignore all spaces, tabulation and line breakers
+func (l *Lexer) skipWhitespace() {
+	for l.character == ' ' || l.character == '\t' ||
+		l.character == '\n' || l.character == '\r' {
+		l.readChar()
+	}
+}
+
+// reads the whole number while the next symbol is digit
+func (l *Lexer) readNumber() string {
+	position := l.position
+	for isDigit(l.character) {
+		l.readChar()
+	}
+	return l.input[position:l.position]
+}
+
+// Checks if the character is English letter or underscore
+func isLetter(character byte) bool {
+	return ('a' <= character && character <= 'z') ||
+		('A' <= character && character <= 'Z') ||
+		character == '_'
+}
+
+// Checks if the character is digit (0-9)
+func isDigit(character byte) bool {
+	return ('0' <= character && character <= '9')
 }

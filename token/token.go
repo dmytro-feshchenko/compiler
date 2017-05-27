@@ -1,6 +1,11 @@
 // Package token - Contains all tokens for the lexical analysis
 package token
 
+var keywords = map[string]Type{
+	"function": FUNCTION,
+	"let":      LET,
+}
+
 const (
 	// ILLEGAL - identifies a token/character we don't know
 	ILLEGAL = "ILLEGAL"
@@ -50,4 +55,16 @@ type Type string
 type Token struct {
 	Type    Type
 	Literal string
+}
+
+// LookupIdent - looks into the keywords map to check if
+// the given identifier is a keyword
+// If it's a keyword - returns the keyword token type
+// Otherwise, returns token.IDENT which is used for all user
+// defined identifiers
+func LookupIdent(ident string) Type {
+	if tok, ok := keywords[ident]; ok {
+		return tok
+	}
+	return IDENT
 }
