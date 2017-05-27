@@ -2,7 +2,19 @@
 # Building a compiler in Go programming language
 This project was developed for building a compiler for own programming language (Beaver language).
 ## Done features
-[Still in development]
+#### Lexer:
+* Parses all the input until the end of the input
+* Can recognize identifiers: e.g. `hello_world`
+* Ignores whitespaces
+* Added numbers (integers only): e.g. `246`
+* Added keywords: `let`, `function`
+* Added operations: `+`, `-`, `*`, `/`, `<`, `>`, `|`
+* Brackets and parenthesis support: `{}`, `()`
+* Added keywords: `if`, `else`, `return`
+* Recognizes comma and semicolon: `,`, `;`
+* Recognizes EOF
+* All not recognized symbols are ILLEGAL tokens: e.g. `$`
+
 ## Planned features
 * C-like syntax
 * Some elements of functional programming: closures, passing functions as arguments, returning function from function, assigning functions to variables
@@ -10,11 +22,11 @@ This project was developed for building a compiler for own programming language 
 * Conditions
 
 ## Limitations
-* ASCII support
+* Only ASCII support
 
 ## How to improve:
 * Add UTF-8 support
-* Add new types
+* Add new types: float, double, string, etc.
 * Add new operators and operations
 * Consider the space as token
 
@@ -32,6 +44,10 @@ git clone https://github.com/technoboom/compiler
 ```
 
 ### Run
+Run the project:
+```
+go run ./main.go
+```
 
 ### Testing
 To run all tests in the project use command: `go test ./...`  
