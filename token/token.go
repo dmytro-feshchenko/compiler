@@ -4,6 +4,11 @@ package token
 var keywords = map[string]Type{
 	"function": FUNCTION,
 	"let":      LET,
+	"true":     TRUE,
+	"false":    FALSE,
+	"if":       IF,
+	"else":     ELSE,
+	"return":   RETURN,
 }
 
 const (
@@ -39,13 +44,31 @@ const (
 	MULTIPLY = "*"
 	// DIVIDE - division operator
 	DIVIDE = "/"
-	// ASSIGN - assiang operator
+	// ASSIGN - assign operator
 	ASSIGN = "="
+	// BANG - logical not, symbol for inversion
+	BANG = "!"
+	// LT - less than smth. (logical operator)
+	LT = "<"
+	// GT - great than smth. (logical operator)
+	GT = ">"
+	// OR - OR operator
+	OR = "|"
 
 	// LET - let keyword
 	LET = "LET"
 	// FUNCTION - function keyword
 	FUNCTION = "FUNCTION"
+	// TRUE - boolean true
+	TRUE = "TRUE"
+	// FALSE - boolean false
+	FALSE = "FALSE"
+	// IF - condition
+	IF = "IF"
+	// ELSE - else condition
+	ELSE = "ELSE"
+	// RETURN - return keyword for the function
+	RETURN = "RETURN"
 )
 
 // Type - contains token type

@@ -61,8 +61,16 @@ func (l *Lexer) NextToken() token.Token {
 		tok = newToken(token.MULTIPLY, l.character)
 	case '/':
 		tok = newToken(token.DIVIDE, l.character)
+	case '<':
+		tok = newToken(token.LT, l.character)
+	case '>':
+		tok = newToken(token.GT, l.character)
+	case '!':
+		tok = newToken(token.BANG, l.character)
 	case ',':
 		tok = newToken(token.COMMA, l.character)
+	case '|':
+		tok = newToken(token.OR, l.character)
 	case 0:
 		tok.Literal = ""
 		tok.Type = token.EOF
@@ -125,5 +133,6 @@ func isLetter(character byte) bool {
 
 // Checks if the character is digit (0-9)
 func isDigit(character byte) bool {
+	// TODO: add other number types (float, double, etc)
 	return ('0' <= character && character <= '9')
 }

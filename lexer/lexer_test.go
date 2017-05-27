@@ -15,6 +15,13 @@ func TestNewToken(t *testing.T) {
 	}
 
 	let result = add(five, ten);
+	let percent = (five - ten) / result * 100;
+	let boolVar = !(five < ten || result < ten);
+	if (5 < 10) {
+		return false;
+	} else {
+		return true;
+	}
 	`
 	tests := []struct {
 		expectedType    token.Type
@@ -55,6 +62,53 @@ func TestNewToken(t *testing.T) {
 		{token.IDENT, "ten"},
 		{token.RPAREN, ")"},
 		{token.SEMICOLON, ";"},
+		{token.LET, "let"},
+		{token.IDENT, "percent"},
+		{token.ASSIGN, "="},
+		{token.LPAREN, "("},
+		{token.IDENT, "five"},
+		{token.MINUS, "-"},
+		{token.IDENT, "ten"},
+		{token.RPAREN, ")"},
+		{token.DIVIDE, "/"},
+		{token.IDENT, "result"},
+		{token.MULTIPLY, "*"},
+		{token.INT, "100"},
+		{token.SEMICOLON, ";"},
+		{token.LET, "let"},
+		{token.IDENT, "boolVar"},
+		{token.ASSIGN, "="},
+		{token.BANG, "!"},
+		{token.LPAREN, "("},
+		{token.IDENT, "five"},
+		{token.LT, "<"},
+		{token.IDENT, "ten"},
+		{token.OR, "|"},
+		{token.OR, "|"},
+		{token.IDENT, "result"},
+		{token.LT, "<"},
+		{token.IDENT, "ten"},
+		{token.RPAREN, ")"},
+		{token.SEMICOLON, ";"},
+
+		{token.IF, "if"},
+		{token.LPAREN, "("},
+		{token.INT, "5"},
+		{token.LT, "<"},
+		{token.INT, "10"},
+		{token.RPAREN, ")"},
+		{token.LBRACKET, "{"},
+		{token.RETURN, "return"},
+		{token.FALSE, "false"},
+		{token.SEMICOLON, ";"},
+		{token.RBRACKET, "}"},
+		{token.ELSE, "else"},
+		{token.LBRACKET, "{"},
+		{token.RETURN, "return"},
+		{token.TRUE, "true"},
+		{token.SEMICOLON, ";"},
+		{token.RBRACKET, "}"},
+
 		{token.EOF, ""},
 	}
 
