@@ -1,5 +1,5 @@
-# Building a compiler in Go programming language
 [![Build Status](https://travis-ci.org/technoboom/compiler.svg?branch=master)](https://travis-ci.org/technoboom/compiler)
+# Building a compiler in Go programming language
 This project was developed for building a compiler for own programming language (Beaver language).
 ## Done features
 [Still in development]
