@@ -16,6 +16,21 @@ This project was developed for building a compiler for own programming language 
 * Recognizes EOF
 * All not recognized symbols are ILLEGAL tokens: e.g. `$`
 
+#### REPL for interpreter
+* Uses Beaver lexer and prints given tokens from the input
+Sample of REPL:
+```
+MacBook-Pro:compiler myuser$ go run main.go
+Hello myuser! Starting Beaver REPL...
+REPL (use Beaver commands):
+beaver>>let number = 10;
+{Type:LET Literal:let}
+{Type:IDENT Literal:number}
+{Type:= Literal:=}
+{Type:INT Literal:10}
+{Type:; Literal:;}
+```
+
 ## Planned features
 * C-like syntax
 * Some elements of functional programming: closures, passing functions as arguments, returning function from function, assigning functions to variables
