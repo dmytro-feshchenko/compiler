@@ -160,6 +160,5 @@ func isLetter(character byte) bool {
 
 // Checks if the character is digit (0-9)
 func isDigit(character byte) bool {
-	// TODO: add other number types (float, double, etc)
 	return ('0' <= character && character <= '9')
 }

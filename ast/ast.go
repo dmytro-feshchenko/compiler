@@ -45,13 +45,16 @@ type LetStatement struct {
 }
 
 func (ls *LetStatement) statementNode() {}
-func (ls *LetStatement) tokenLiteral() string {
+
+// TokenLiteral - returns the literal value of the associated node
+func (ls *LetStatement) TokenLiteral() string {
 	return ls.Token.Literal
 }
 
 // Identifier - represents identifier
 type Identifier struct {
 	Token token.Token // token.IDENT token
+	Value string
 }
 
 func (i *Identifier) expressionNode() {}

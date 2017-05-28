@@ -1,5 +1,8 @@
 [![Build Status](https://travis-ci.org/technoboom/compiler.svg?branch=master)](https://travis-ci.org/technoboom/compiler)
 [![codecov](https://codecov.io/gh/technoboom/compiler/branch/master/graph/badge.svg)](https://codecov.io/gh/technoboom/compiler)
+[![Code Climate](https://codeclimate.com/github/technoboom/compiler/badges/gpa.svg)](https://codeclimate.com/github/technoboom/compiler)
+[![Issue Count](https://codeclimate.com/github/technoboom/compiler/badges/issue_count.svg)](https://codeclimate.com/github/technoboom/compiler)
+
 # Building a compiler in Go programming language
 This project was developed for building a compiler for own programming language (Beaver language).
 ## Done features
@@ -47,7 +50,7 @@ beaver>>let number = 10;
 * Only ASCII support
 
 ## How to improve:
-* Add UTF-8 support
+* Add UTF-8 support (using the )
 * Add new types: float, double, string, etc.
 * Add new operators and operations
 * Consider the space as token
@@ -92,6 +95,8 @@ You can use English letters and underscore inside variable identifiers
 ```
 let arabica_coffee = 95;
 let _strength_percent = 50;
+let camelCase = true;
+let UpperCamelCase = false;
 ```
 
 ### Functions
@@ -144,8 +149,16 @@ On this stage we need to take care about correct language semantics.
 As an example, we need to ensure that when we have some variable with some type and we are going to assign another type to this variable we will get an error.
 
 ### 4. Optimization
+On this stage we need to think about performance of our application. To do this,
+we should remove overhead constructions and operations.  
+We can choose 1 of the options to perform this operation:
+1. At the stage of processing intermediate code
+2. At the stage of processing machine code (or other low-level representation)   
 
 ### 5. Code Generation
+We use intermediate code to produce targeted low-level code.
 
 ## Resources:
-1. Writting an interpreter in Go (Thorsten Ball): https://interpreterbook.com/
+1. Writing an interpreter in Go (Thorsten Ball)
+2. Compiler Construction by Niklaus Wirth (2014)
+3. Series of blog posts about building compilers:  http://noeffclue.blogspot.ca/2014/05/compiler-part-1-introduction-to-writing.html
