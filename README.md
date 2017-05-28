@@ -17,7 +17,8 @@ This project was developed for building a compiler for own programming language 
 * All not recognized symbols are ILLEGAL tokens: e.g. `$`
 
 #### REPL for interpreter
-* Uses Beaver lexer and prints given tokens from the input
+* Uses Beaver lexer and prints given tokens from the input  
+
 Sample of REPL:
 ```
 MacBook-Pro:compiler myuser$ go run main.go
