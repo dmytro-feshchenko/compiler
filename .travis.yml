@@ -4,11 +4,13 @@ go:
   - 1.8.x
   - master
 
+script: go test ./...
+
 before_install:
   - go get -t -v ./...
 
 script:
-  - go test -race -coverprofile=coverage.txt -covermode=atomic
+  - ./go.test.sh
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
