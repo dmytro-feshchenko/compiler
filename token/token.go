@@ -54,6 +54,10 @@ const (
 	GT = ">"
 	// OR - OR operator
 	OR = "|"
+	// EQ - operator for checking if both operands are equal
+	EQ = "=="
+	// NOTEQ - operator for checking if both operands are not equal
+	NOTEQ = "!="
 
 	// LET - let keyword
 	LET = "LET"

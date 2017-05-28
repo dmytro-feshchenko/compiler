@@ -8,7 +8,8 @@ This project was developed for building a compiler for own programming language 
 * Ignores whitespaces
 * Added numbers (integers only): e.g. `246`
 * Added keywords: `let`, `function`
-* Added operations: `+`, `-`, `*`, `/`, `<`, `>`, `|`
+* Added operators: `+`, `-`, `*`, `/`, `<`, `>`, `|`
+* Added comparison and logical operators: `==`, `!=`
 * Brackets and parenthesis support: `{}`, `()`
 * Added keywords: `if`, `else`, `return`
 * Recognizes comma and semicolon: `,`, `;`
@@ -81,6 +82,20 @@ let multiply = function(a, b) {
 ```
 Each function returns the last executed sentence.
 In the sample above, the result of multiplication will be returned.
+
+### Operators
+You can use equal operator `==` for comparing two variables/values with one type:  
+```
+if (number == 1000000) {
+    // perform the action to congratulate the one millionth visitor
+}
+```
+Not equal operator `!=` gives you a way to get around:  
+```
+if (column != 1) {
+    // ignore the column
+}
+```
 
 ## Intro into building compiler/interpreter:
 Whether you are building an interpreter or a compiler most of the steps remain the same. The most common, basic steps are:

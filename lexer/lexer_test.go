@@ -22,6 +22,12 @@ func TestNewToken(t *testing.T) {
 	} else {
 		return true;
 	}
+
+	if (true == false) {
+		return false;
+	} else if (true != 1) {
+		return true;
+	}
 	`
 	tests := []struct {
 		expectedType    token.Type
@@ -103,6 +109,30 @@ func TestNewToken(t *testing.T) {
 		{token.SEMICOLON, ";"},
 		{token.RBRACKET, "}"},
 		{token.ELSE, "else"},
+		{token.LBRACKET, "{"},
+		{token.RETURN, "return"},
+		{token.TRUE, "true"},
+		{token.SEMICOLON, ";"},
+		{token.RBRACKET, "}"},
+
+		{token.IF, "if"},
+		{token.LPAREN, "("},
+		{token.TRUE, "true"},
+		{token.EQ, "=="},
+		{token.FALSE, "false"},
+		{token.RPAREN, ")"},
+		{token.LBRACKET, "{"},
+		{token.RETURN, "return"},
+		{token.FALSE, "false"},
+		{token.SEMICOLON, ";"},
+		{token.RBRACKET, "}"},
+		{token.ELSE, "else"},
+		{token.IF, "if"},
+		{token.LPAREN, "("},
+		{token.TRUE, "true"},
+		{token.EQ, "!="},
+		{token.INT, "1"},
+		{token.RPAREN, ")"},
 		{token.LBRACKET, "{"},
 		{token.RETURN, "return"},
 		{token.TRUE, "true"},

@@ -42,7 +42,17 @@ func (l *Lexer) NextToken() token.Token {
 
 	switch l.character {
 	case '=':
-		tok = newToken(token.ASSIGN, l.character)
+		// look ahead on 1 position to check if it's not the ==
+		if l.pickChar() == '=' {
+			character := l.character
+			l.readChar()
+			tok = token.Token{
+				Type:    token.EQ,
+				Literal: string(character) + string(l.character),
+			}
+		} else {
+			tok = newToken(token.ASSIGN, l.character)
+		}
 	case ';':
 		tok = newToken(token.SEMICOLON, l.character)
 	case '(':
@@ -66,7 +76,17 @@ func (l *Lexer) NextToken() token.Token {
 	case '>':
 		tok = newToken(token.GT, l.character)
 	case '!':
-		tok = newToken(token.BANG, l.character)
+		// look ahead on 1 position to check if it's not the !=
+		if l.pickChar() == '=' {
+			character := l.character
+			l.readChar()
+			tok = token.Token{
+				Type:    token.EQ,
+				Literal: string(character) + string(l.character),
+			}
+		} else {
+			tok = newToken(token.BANG, l.character)
+		}
 	case ',':
 		tok = newToken(token.COMMA, l.character)
 	case '|':
@@ -122,6 +142,13 @@ func (l *Lexer) readNumber() string {
 		l.readChar()
 	}
 	return l.input[position:l.position]
+}
+
+func (l *Lexer) pickChar() byte {
+	if l.readPosition >= len(l.input) {
+		return 0
+	}
+	return l.input[l.readPosition]
 }
 
 // Checks if the character is English letter or underscore
