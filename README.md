@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/technoboom/compiler.svg?branch=master)](https://travis-ci.org/technoboom/compiler)
+[![codecov](https://codecov.io/gh/technoboom/compiler/branch/master/graph/badge.svg)](https://codecov.io/gh/technoboom/compiler)
 # Building a compiler in Go programming language
 This project was developed for building a compiler for own programming language (Beaver language).
 ## Done features
@@ -17,7 +18,11 @@ This project was developed for building a compiler for own programming language 
 * All not recognized symbols are ILLEGAL tokens: e.g. `$`
 
 #### REPL for interpreter
-* Uses Beaver lexer and prints given tokens from the input  
+* Uses Beaver lexer and prints given tokens from the input
+
+#### Parser
+We used "top down operator precedence" parser, also known as "Pratt parser"
+*
 
 Sample of REPL:
 ```
