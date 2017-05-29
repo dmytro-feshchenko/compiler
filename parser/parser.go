@@ -45,7 +45,7 @@ func (p *Parser) Errors() []string {
 
 // peekError - adds an error to the parser errors array
 func (p *Parser) peekError(t token.Type) {
-	msg := fmt.Sprintf("expected next token to be '%s', got '%s' insted",
+	msg := fmt.Sprintf("expected next token to be '%s', got '%s' instead",
 		t,
 		p.peekToken.Type)
 	p.errors = append(p.errors, msg)
@@ -58,12 +58,14 @@ func (p *Parser) parseStatement() ast.Statement {
 	switch p.curToken.Type {
 	case token.LET:
 		return p.parseLetStatement()
+	case token.RETURN:
+		return p.parseReturnStatement()
 	default:
 		return nil
 	}
 }
 
-// parseLetStatement - parses
+// parseLetStatement - parses let statement
 func (p *Parser) parseLetStatement() *ast.LetStatement {
 	stmt := &ast.LetStatement{Token: p.curToken}
 
@@ -73,6 +75,20 @@ func (p *Parser) parseLetStatement() *ast.LetStatement {
 
 	stmt.Name = &ast.Identifier{Token: p.curToken, Value: p.curToken.Literal}
 
+	for !p.curTokenIs(token.SEMICOLON) {
+		p.nextToken()
+	}
+
+	return stmt
+}
+
+// parseReturnStatement - parses return statement
+func (p *Parser) parseReturnStatement() *ast.ReturnStatement {
+	stmt := &ast.ReturnStatement{Token: p.curToken}
+
+	p.nextToken()
+
+	// iterate while it's not a semicolon
 	for !p.curTokenIs(token.SEMICOLON) {
 		p.nextToken()
 	}
