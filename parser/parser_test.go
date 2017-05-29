@@ -16,9 +16,10 @@ func TestLetStatements(t *testing.T) {
 	// create new lexer for the input
 	l := lexer.New(input)
 	// create parser with the lexer
-	parser := New(l)
+	p := New(l)
+	checkParserErrors(t, p)
 
-	program := parser.ParseProgram()
+	program := p.ParseProgram()
 	if program == nil {
 		t.Fatalf("parser.ParseProgram() returned nil")
 	}
@@ -67,4 +68,47 @@ func testLetStatement(t *testing.T, s ast.Statement, name string) bool {
 	}
 
 	return true
+}
+
+// checkParserErrors - checks the erros of the parser
+func checkParserErrors(t *testing.T, p *Parser) {
+	errors := p.Errors()
+	if len(errors) == 0 {
+		return
+	}
+
+	t.Errorf("The parser has %d errors, must be 0", len(errors))
+	for _, msg := range errors {
+		t.Errorf("parser error: %s", msg)
+	}
+	t.FailNow()
+}
+
+func TestParserErrors(t *testing.T) {
+	input := `
+	let 8999;
+	let 1 = a;
+	let = 5;
+	`
+
+	l := lexer.New(input)
+	p := New(l)
+	p.ParseProgram()
+	errors := p.Errors()
+	if len(errors) != 3 {
+		t.Errorf("Parser has %d errors, expected 3", len(errors))
+	}
+	// tests := []struct {
+	// 	expectedError string
+	// }{
+	// 	{"expected next token to be IDENT, got INT instead"},
+	// 	{"expected next token to be IDENT, got INT instead"},
+	// 	{"expected next token to be IDENT, got ASSIGN instead"},
+	// }
+	//
+	// for i, tt := range tests {
+	// 	if tt.expectedError != errors[i] {
+	// 		t.Errorf("", args)
+	// 	}
+	// }
 }

@@ -2,6 +2,8 @@
 package parser
 
 import (
+	"fmt"
+
 	"github.com/technoboom/compiler/ast"
 	"github.com/technoboom/compiler/lexer"
 	"github.com/technoboom/compiler/token"
@@ -9,15 +11,18 @@ import (
 
 // Parser - structure for storing lexer and state of parsing
 type Parser struct {
-	l *lexer.Lexer
-
+	l         *lexer.Lexer
 	curToken  token.Token
 	peekToken token.Token
+	errors    []string // errors for debugging
 }
 
 // New - creates new Parser accordingly to the lexer in the args
 func New(l *lexer.Lexer) *Parser {
-	p := &Parser{l: l}
+	p := &Parser{
+		l:      l,
+		errors: []string{},
+	}
 
 	// read two tokens to ensure that curToken and peekToken are
 	// both set
@@ -31,6 +36,19 @@ func New(l *lexer.Lexer) *Parser {
 func (p *Parser) nextToken() {
 	p.curToken = p.peekToken
 	p.peekToken = p.l.NextToken()
+}
+
+// Errors - returns all errors collected by the parser
+func (p *Parser) Errors() []string {
+	return p.errors
+}
+
+// peekError - adds an error to the parser errors array
+func (p *Parser) peekError(t token.Type) {
+	msg := fmt.Sprintf("expected next token to be '%s', got '%s' insted",
+		t,
+		p.peekToken.Type)
+	p.errors = append(p.errors, msg)
 }
 
 // parseStatement - parses the statement to make a decision what kind of
@@ -78,6 +96,7 @@ func (p *Parser) expectPeek(t token.Type) bool {
 		p.nextToken()
 		return true
 	}
+	p.peekError(t)
 	return false
 }
 
