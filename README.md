@@ -154,6 +154,8 @@ During this step we are going to give some meanings to the tokens we received on
 Each token is an object and it's placed into a tree data structure.
 On this step we need to take care about correct language syntax.   For different languages there are list of base rules: tabulation, opening and closing brackets, etc.
 
+#### Pratt Parser
+
 ### 3. Semantic Analysis
 On this stage we need to take care about correct language semantics.  
 As an example, we need to ensure that when we have some variable with some type and we are going to assign another type to this variable we will get an error.

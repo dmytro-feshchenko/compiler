@@ -9,12 +9,22 @@ import (
 	"github.com/technoboom/compiler/token"
 )
 
+type (
+	prefixParseFn func() ast.Expression
+	infixParseFn  func(ast.Expression) ast.Expression
+)
+
 // Parser - structure for storing lexer and state of parsing
 type Parser struct {
 	l         *lexer.Lexer
 	curToken  token.Token
 	peekToken token.Token
 	errors    []string // errors for debugging
+
+	// map of prefix parse funtions associated with tokens types
+	prefixParseFns map[token.Type]prefixParseFn
+	// map of infix parse funtions associated with tokens types
+	infixParseFns map[token.Type]infixParseFn
 }
 
 // New - creates new Parser accordingly to the lexer in the args
@@ -134,4 +144,14 @@ func (p *Parser) ParseProgram() *ast.Program {
 		p.nextToken()
 	}
 	return program
+}
+
+// registerInfix - registers function for parsing prefix for the token
+func (p *Parser) registerPrefix(tokenType token.Type, fn prefixParseFn) {
+	p.prefixParseFns[tokenType] = fn
+}
+
+// registerInfix - registers function for parsing infix for the token
+func (p *Parser) registerInfix(tokenType token.Type, fn infixParseFn) {
+	p.infixParseFns[tokenType] = fn
 }

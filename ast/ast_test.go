@@ -27,3 +27,21 @@ func TestString(t *testing.T) {
 		t.Errorf("program.String() wrong. got=%s", program.String())
 	}
 }
+
+func TestReturnString(t *testing.T) {
+	program := &Program{
+		Statements: []Statement{
+			&ReturnStatement{
+				Token: token.Token{Type: token.RETURN, Literal: "return"},
+				ReturnValue: &Identifier{
+					Token: token.Token{Type: token.IDENT, Literal: "bar"},
+					Value: "bar",
+				},
+			},
+		},
+	}
+
+	if program.String() != "return bar;" {
+		t.Errorf("program.String() wrong. got=%s", program.String())
+	}
+}
