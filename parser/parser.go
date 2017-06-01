@@ -7,6 +7,7 @@ import (
 	"github.com/technoboom/compiler/ast"
 	"github.com/technoboom/compiler/lexer"
 	"github.com/technoboom/compiler/token"
+	"strconv"
 )
 
 const (
@@ -47,6 +48,7 @@ func New(l *lexer.Lexer) *Parser {
 
 	p.prefixParseFns = make(map[token.Type]prefixParseFn)
 	p.registerPrefix(token.IDENT, p.parseIdentifier)
+	p.registerPrefix(token.INT, p.parseIntegerLiteral)
 
 	// read two tokens to ensure that curToken and peekToken are
 	// both set
@@ -146,6 +148,21 @@ func (p *Parser) parseExpression(precedence int) ast.Expression {
 // parseIdentifier - parses identifier and returns it
 func (p *Parser) parseIdentifier() ast.Expression {
 	return &ast.Identifier{Token: p.curToken, Value: p.curToken.Literal}
+}
+
+// parseIntegerLiteral - parses integer literals and returns ast.Expression
+func (p *Parser) parseIntegerLiteral() ast.Expression {
+	literal := &ast.IntegerLiteral{Token: p.curToken}
+
+	value, err := strconv.ParseInt(p.curToken.Literal, 0, 64)
+	if err != nil {
+		msg := fmt.Sprintf("could not parse %q as integer", p.curToken.Literal)
+		p.errors = append(p.errors, msg)
+		return nil
+	}
+	literal.Value = value
+
+	return literal
 }
 
 // curTokenIs - checks if current token type is a given type
