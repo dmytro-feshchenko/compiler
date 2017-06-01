@@ -9,6 +9,17 @@ import (
 	"github.com/technoboom/compiler/token"
 )
 
+const (
+	_ int = iota
+	LOWEST
+	EQUALS 		// ==
+	LESSGREATER	// > or <
+	SUM		// +
+	PRODUCT		// *
+	PREFIX		// -X or !X
+	CALL		// myFunction(X)
+)
+
 type (
 	prefixParseFn func() ast.Expression
 	infixParseFn  func(ast.Expression) ast.Expression
@@ -21,9 +32,9 @@ type Parser struct {
 	peekToken token.Token
 	errors    []string // errors for debugging
 
-	// map of prefix parse funtions associated with tokens types
+	// map of prefix parse functions associated with tokens types
 	prefixParseFns map[token.Type]prefixParseFn
-	// map of infix parse funtions associated with tokens types
+	// map of infix parse functions associated with tokens types
 	infixParseFns map[token.Type]infixParseFn
 }
 
@@ -33,6 +44,9 @@ func New(l *lexer.Lexer) *Parser {
 		l:      l,
 		errors: []string{},
 	}
+
+	p.prefixParseFns = make(map[token.Type]prefixParseFn)
+	p.registerPrefix(token.IDENT, p.parseIdentifier)
 
 	// read two tokens to ensure that curToken and peekToken are
 	// both set
@@ -71,7 +85,7 @@ func (p *Parser) parseStatement() ast.Statement {
 	case token.RETURN:
 		return p.parseReturnStatement()
 	default:
-		return nil
+		return p.parseExpressionStatement()
 	}
 }
 
@@ -106,6 +120,34 @@ func (p *Parser) parseReturnStatement() *ast.ReturnStatement {
 	return stmt
 }
 
+// parseExpressionStatement - parses expression statements
+func (p *Parser) parseExpressionStatement() *ast.ExpressionStatement {
+	stmt := &ast.ExpressionStatement{Token: p.curToken}
+
+	stmt.Expression = p.parseExpression(LOWEST)
+
+	if p.peekTokenIs(token.SEMICOLON) {
+		p.nextToken()
+	}
+	return stmt
+}
+
+// parseExpression - parses expression using it precedence
+func (p *Parser) parseExpression(precedence int) ast.Expression {
+	prefix := p.prefixParseFns[p.curToken.Type]
+	if prefix == nil {
+		return nil
+	}
+	leftExp := prefix()
+
+	return leftExp
+}
+
+// parseIdentifier - parses identifier and returns it
+func (p *Parser) parseIdentifier() ast.Expression {
+	return &ast.Identifier{Token: p.curToken, Value: p.curToken.Literal}
+}
+
 // curTokenIs - checks if current token type is a given type
 func (p *Parser) curTokenIs(t token.Type) bool {
 	return p.curToken.Type == t
@@ -134,7 +176,7 @@ func (p *Parser) expectPeek(t token.Type) bool {
 func (p *Parser) ParseProgram() *ast.Program {
 	program := &ast.Program{}
 	program.Statements = []ast.Statement{}
-	// read until we reaced the end of the file
+	// read until we reached the end of the file
 	for p.curToken.Type != token.EOF {
 		stmt := p.parseStatement()
 		if stmt != nil {

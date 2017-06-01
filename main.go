@@ -9,11 +9,11 @@ import (
 )
 
 func main() {
-	user, err := user.Current()
+	currentUser, err := user.Current()
 	if err != nil {
 		panic(err)
 	}
-	fmt.Printf("Hello %s! Starting Beaver REPL...\n", user.Username)
+	fmt.Printf("Hello %s! Starting Beaver REPL...\n", currentUser.Username)
 	fmt.Printf("REPL (use Beaver commands):\n")
 	repl.Start(os.Stdin, os.Stdout)
 }
