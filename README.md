@@ -21,6 +21,17 @@ This project was developed for building a compiler for own programming language 
 
 #### Parser
 We used "top down operator precedence" parser, also known as "Pratt parser"
+
+##### Features
+- [x] Parsing let expressions: `let a = 10;`
+- [x] Parsing return statements: `return 500;`
+- [x] Parsing int expressions: `5;`
+- [x] Prefix operators: `<prefix operator><expression>;`, `-10;`, `!true;`  
+Supports two operators: `!` and `-`
+- [ ] Infix operators `<expression><infix operator><expression>`, e.g. `5 + 10`, `2 - 8`  
+Supports 8 operators: `+`, `-`, `*`, `/`, `<`, `>`, `==`, `!=`
+
+##### Samples:
 * `let` statement
 ```
 let foo = 27;
@@ -33,6 +44,7 @@ return foo;
 return foo + bar;
 return foobar(foo, bar);
 ```
+
 
 #### REPL for interpreter
 * Uses Beaver lexer and prints given tokens from the input
@@ -78,15 +90,18 @@ Clone the project:
 git clone https://github.com/technoboom/compiler
 ```
 
-### Run
-Run the project:
+### Run REPL
+Run the REPL:
 ```
 go run ./main.go
 ```
 
 ### Testing
 To run all tests in the project use command: `go test ./...`  
-To test only lexer: `go test ./lexer`
+To test only lexer: `go test ./lexer`  
+To test only parser: `go test ./parser`  
+To test only ast: `go test ./ast`  
+To test tokens: `go test ./tokens`
 
 ## Quick intro into Beaver language:
 ### Syntax:
