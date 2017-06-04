@@ -28,8 +28,9 @@ We used "top down operator precedence" parser, also known as "Pratt parser"
 - [x] Parsing int expressions: `5;`
 - [x] Prefix operators: `<prefix operator><expression>;`, `-10;`, `!true;`  
 Supports two operators: `!` and `-`
-- [ ] Infix operators `<expression><infix operator><expression>`, e.g. `5 + 10`, `2 - 8`  
+- [x] Infix operators `<expression><infix operator><expression>`, e.g. `5 + 10`, `2 - 8`  
 Supports 8 operators: `+`, `-`, `*`, `/`, `<`, `>`, `==`, `!=`
+- [ ] Working with operations precedences
 
 ##### Samples:
 * `let` statement

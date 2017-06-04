@@ -190,3 +190,33 @@ func (pe *PrefixExpression) String() string {
 
 	return out.String()
 }
+
+// InfixExpression - defines expression with prefix notation
+// <expression><infix operator><expression>;
+type InfixExpression struct {
+	// the operator (infix) token, e.g. '+', '-'
+	Token token.Token
+	Left Expression
+	Operator string
+	Right Expression
+}
+
+func (oe *InfixExpression) expressionNode() {}
+
+// TokenLiteral - returns the literal value of the associated node
+func (oe *InfixExpression) TokenLiteral() string {
+	return oe.Token.Literal
+}
+
+// String - returns string representation of the expression
+func (oe *InfixExpression) String() string {
+	var out bytes.Buffer
+
+	out.WriteString("(")
+	out.WriteString(oe.Left.String())
+	out.WriteString(oe.Operator)
+	out.WriteString(oe.Right.String())
+	out.WriteString(")")
+
+	return out.String()
+}
