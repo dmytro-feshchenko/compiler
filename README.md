@@ -30,7 +30,7 @@ We used "top down operator precedence" parser, also known as "Pratt parser"
 Supports two operators: `!` and `-`
 - [x] Infix operators `<expression><infix operator><expression>`, e.g. `5 + 10`, `2 - 8`  
 Supports 8 operators: `+`, `-`, `*`, `/`, `<`, `>`, `==`, `!=`
-- [ ] Working with operations precedences
+- [x] Working with operations precedences
 
 ##### Samples:
 * `let` statement
@@ -45,7 +45,23 @@ return foo;
 return foo + bar;
 return foobar(foo, bar);
 ```
-
+* prefix operators
+```
+-5;
+-100;
+!true;
+```
+* infix operators
+```
+5 + 100;
+5 - 6;
+10 / 5;
+2 * 90;
+4 == 4;
+3 != 6;
+2 < 87;
+5 > 4;
+```
 
 #### REPL for interpreter
 * Uses Beaver lexer and prints given tokens from the input
@@ -163,7 +179,9 @@ First step of building a compiler - performing lexical analysis.
 Lexical analysis - process of scanning and splitting the code into small independent pieces - tokens.  
 Each token is associated with a literal string (lexeme) that will be used in next steps.  
 Literals (e.g., strings, integers, float numbers), keywords, operators are the main goals to recognize
-on this step.
+on this step.  
+You can find my implementation of Lexer in `./lexer` folder.  
+Also we use structures from `./token` inside our parser.
 
 ### 2. Parsing
 During this step we are going to give some meanings to the tokens we received on the state of Lexical Analysis.  
@@ -171,6 +189,8 @@ Each token is an object and it's placed into a tree data structure.
 On this step we need to take care about correct language syntax.   For different languages there are list of base rules: tabulation, opening and closing brackets, etc.
 
 #### Pratt Parser
+You can find my implementation of Prett Parser in `./parser` folder.  
+Also we use structures from `./ast` inside our parser.
 
 ### 3. Semantic Analysis
 On this stage we need to take care about correct language semantics.  
