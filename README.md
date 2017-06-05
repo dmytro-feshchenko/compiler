@@ -3,7 +3,10 @@
 [![Issue Count](https://codeclimate.com/github/technoboom/compiler/badges/issue_count.svg)](https://codeclimate.com/github/technoboom/compiler)
 
 # Building a compiler in Go programming language
-This project was developed for building a compiler for own programming language (Beaver language).
+This project was developed for building a compiler for own programming language (Beaver language).  
+Note: I use a lot of ideas and boilerplate from awesome book "Writing an interpreter in Go"(Thorsten Ball) to create my
+own compiler. To see other resources I used within the project, see the <a href="#resources">resources section.</a>
+
 ## Done features
 #### Lexer:
 * Parses all the input until the end of the input

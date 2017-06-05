@@ -57,14 +57,14 @@ func New(l *lexer.Lexer) *Parser {
 		errors: []string{},
 	}
 
-	// parsing prefix expressions
+	// parsing prefix expressions ("nuds" - "null denotations")
 	p.prefixParseFns = make(map[token.Type]prefixParseFn)
 	p.registerPrefix(token.IDENT, p.parseIdentifier)
 	p.registerPrefix(token.INT, p.parseIntegerLiteral)
 	p.registerPrefix(token.BANG, p.parsePrefixExpression)
 	p.registerPrefix(token.MINUS, p.parsePrefixExpression)
 
-	// parsing infix expressions
+	// parsing infix expressions ("leds" - "left denotations")
 	p.infixParseFns = make(map[token.Type]infixParseFn)
 	p.registerInfix(token.PLUS, p.parseInfixExpression)
 	p.registerInfix(token.MINUS, p.parseInfixExpression)
