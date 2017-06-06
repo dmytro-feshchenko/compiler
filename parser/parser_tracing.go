@@ -5,28 +5,38 @@ import (
 	"strings"
 )
 
+// contains current trace level for printing messages with indentation
 var traceLevel int = 0
 
-const traceIdentPlaceholder string = "\t"
+// character which will be used for showing indentation level
+const traceIndentationPlaceholder string = "\t"
 
-func identLevel() string {
-	return strings.Repeat(traceIdentPlaceholder, traceLevel-1)
+// indentationLevel - returns current indentation level
+// as string which contains some number of indentation placeholders
+// according to current traceLevel
+func indentationLevel() string {
+	return strings.Repeat(traceIndentationPlaceholder, traceLevel-1)
 }
 
+// tracePrint - prints message with current indentation level using fmt
 func tracePrint(fs string) {
-	fmt.Printf("%s%s\n", identLevel(), fs)
+	fmt.Printf("%s%s\n", indentationLevel(), fs)
 }
 
-func incIdent() { traceLevel = traceLevel + 1 }
-func decIdent() { traceLevel = traceLevel - 1 }
+// increaseIndentation - increases current traceLevel
+func increaseIndentation() { traceLevel = traceLevel + 1 }
+// decreaseIndentation - decreases current traceLevel
+func decreaseIndentation() { traceLevel = traceLevel - 1 }
 
+// trace - increases indent prints begin message
 func trace(msg string) string {
-	incIdent()
+	increaseIndentation()
 	tracePrint("BEGIN " + msg)
 	return msg
 }
 
+// untrace - prints end message and decreases indentation
 func untrace(msg string) {
 	tracePrint("END " + msg)
-	decIdent()
+	decreaseIndentation()
 }

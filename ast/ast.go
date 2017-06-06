@@ -214,9 +214,27 @@ func (oe *InfixExpression) String() string {
 
 	out.WriteString("(")
 	out.WriteString(oe.Left.String())
-	out.WriteString(oe.Operator)
+	out.WriteString(" " + oe.Operator + " ")
 	out.WriteString(oe.Right.String())
 	out.WriteString(")")
 
 	return out.String()
+}
+
+// Boolean - structure for boolean variables
+type Boolean struct {
+	Token token.Token
+	Value bool
+}
+
+func (b *Boolean) expressionNode() {}
+
+// TokenLiteral - returns the literal value of the associated node
+func (b *Boolean) TokenLiteral() string {
+	return b.Token.Literal
+}
+
+// String - returns string representation of the expression
+func (b *Boolean) String() string {
+	return b.Token.Literal
 }
