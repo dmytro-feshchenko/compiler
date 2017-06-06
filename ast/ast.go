@@ -238,3 +238,62 @@ func (b *Boolean) TokenLiteral() string {
 func (b *Boolean) String() string {
 	return b.Token.Literal
 }
+
+// IfExpression - defines conditional expression
+// if (<condition>) <consequence> else <alternative>
+type IfExpression struct {
+	Token token.Token // the `if` token
+	Condition Expression
+	Consequence *BlockStatement
+	Alternative *BlockStatement
+}
+
+func (ie *IfExpression) expressionNode() {}
+
+// TokenLiteral - returns the literal value of the associated node
+func (ie *IfExpression) TokenLiteral() string {
+	return ie.Token.Literal
+}
+
+// String - returns string representation of the expression
+func (ie *IfExpression) String() string {
+	var out bytes.Buffer
+
+	out.WriteString("if")
+	out.WriteString(ie.Condition.String())
+	out.WriteString(" ")
+	out.WriteString(ie.Consequence.String())
+
+	if ie.Alternative != nil {
+		out.WriteString("else ")
+		out.WriteString(ie.Alternative.String())
+	}
+
+	return out.String()
+}
+
+// BlockStatement - represents series of statements
+type BlockStatement struct {
+	// the "{" token
+	Token token.Token
+	// the series of statements
+	Statements []Statement
+}
+
+func (bs *BlockStatement) statementNode() {}
+
+// TokenLiteral - returns the literal value of the associated node
+func (bs *BlockStatement) TokenLiteral() string {
+	return bs.Token.Literal
+}
+
+// String - returns string representation of the expression
+func (bs *BlockStatement) String() string {
+	var out bytes.Buffer
+
+	for _, s := range bs.Statements {
+		out.WriteString(s.String())
+	}
+
+	return out.String()
+}

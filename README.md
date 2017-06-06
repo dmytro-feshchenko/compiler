@@ -154,6 +154,16 @@ let multiply = function(a, b) {
 Each function returns the last executed sentence.
 In the sample above, the result of multiplication will be returned.
 
+### Conditions
+In Beaver we can use keywords `if` nad `else` to work with conditionals
+```
+if (temperature > 0) {
+    // it's hot enough
+} else {
+    // you can mold snowballs
+}
+```
+
 ### Operators
 You can use equal operator `==` for comparing two variables/values with one type:  
 ```
