@@ -76,14 +76,10 @@ Sample of REPL:
 MacBook-Pro:compiler myuser$ go run main.go
 Hello myuser! Starting Beaver REPL...
 REPL (use Beaver commands):
-beaver>>1 + 2
-(1 + 2)
-beaver>>2 + 3
-(2 + 3)
-beaver>>2 + 3 * 10
-(2 + (3 * 10))
-beaver>>true == false
-(true == false)
+beaver>>1
+1
+beaver>>2000
+2000
 beaver>>let x 12 * 3
 
      __________
@@ -99,6 +95,10 @@ beaver>>let x 12 * 3
 Woops! Something got wrong here:
 expected next token to be '=', got 'INT' instead
 ```
+
+#### Evaluator:
+- [x] Just evaluates statements and expressions in a while
+- [x] Can evaluate integers
 
 ### Types:
 - [x] Integers

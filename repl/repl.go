@@ -8,6 +8,7 @@ import (
 
 	"github.com/technoboom/compiler/lexer"
 	"github.com/technoboom/compiler/parser"
+	"github.com/technoboom/compiler/evaluator"
 )
 
 // PROMPT - the message that leads each line of the REPL
@@ -47,10 +48,15 @@ func Start(in io.Reader, out io.Writer) {
 		program := p.ParseProgram()
 		if len(p.Errors()) != 0 {
 			printParseErrors(out, p.Errors())
+			continue
 		}
 
-		io.WriteString(out, program.String())
-		io.WriteString(out, "\n")
+		evaluated := evaluator.Eval(program)
+
+		if evaluated != nil {
+			io.WriteString(out, evaluated.Inspect())
+			io.WriteString(out, "\n")
+		}
 	}
 }
 
