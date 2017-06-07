@@ -100,6 +100,11 @@ Woops! Something got wrong here:
 expected next token to be '=', got 'INT' instead
 ```
 
+### Types:
+- [x] Integers
+- [x] Booleans
+- [x] Null
+
 ## Planned features
 * C-like syntax
 * Some elements of functional programming: closures, passing functions as arguments, returning function from function, assigning functions to variables
