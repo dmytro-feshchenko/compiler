@@ -13,6 +13,19 @@ import (
 // PROMPT - the message that leads each line of the REPL
 const PROMPT = "beaver>>"
 
+const BEAVER = `
+     __________
+    /  _    _  \
+  _/   _    _   \_
+ |_|  | |  | |  |_|
+  \   |_|  |_|   /
+   |      _     |
+   |    | | |   |
+   |            |
+   |____________|
+
+`
+
 // Start - starts the REPL interactive mode
 // reads from input until encountering new line,
 // converts input into tokens and prints them all
@@ -41,7 +54,10 @@ func Start(in io.Reader, out io.Writer) {
 	}
 }
 
+// printParseErrors - prints parser errors
 func printParseErrors(out io.Writer, errors []string) {
+	io.WriteString(out, BEAVER)
+	io.WriteString(out, "Woops! Something got wrong here:")
 	for _, msg := range errors {
 		io.WriteString(out, "\t" + msg + "\n")
 	}

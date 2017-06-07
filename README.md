@@ -84,6 +84,20 @@ beaver>>2 + 3 * 10
 (2 + (3 * 10))
 beaver>>true == false
 (true == false)
+beaver>>let x 12 * 3
+
+     __________
+    /  _    _  \
+  _/   _    _   \_
+ |_|  | |  | |  |_|
+  \   |_|  |_|   /
+   |      _     |
+   |    | | |   |
+   |            |
+   |____________|
+
+Woops! Something got wrong here:
+expected next token to be '=', got 'INT' instead
 ```
 
 ## Planned features
