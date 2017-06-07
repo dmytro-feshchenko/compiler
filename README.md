@@ -69,19 +69,21 @@ return foobar(foo, bar);
 ```
 
 #### REPL for interpreter
-* Uses Beaver lexer and prints given tokens from the input
+* Uses Beaver parser and prints given tokens from the input
 
 Sample of REPL:
 ```
 MacBook-Pro:compiler myuser$ go run main.go
 Hello myuser! Starting Beaver REPL...
 REPL (use Beaver commands):
-beaver>>let number = 10;
-{Type:LET Literal:let}
-{Type:IDENT Literal:number}
-{Type:= Literal:=}
-{Type:INT Literal:10}
-{Type:; Literal:;}
+beaver>>1 + 2
+(1 + 2)
+beaver>>2 + 3
+(2 + 3)
+beaver>>2 + 3 * 10
+(2 + (3 * 10))
+beaver>>true == false
+(true == false)
 ```
 
 ## Planned features
