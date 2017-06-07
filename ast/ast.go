@@ -335,3 +335,38 @@ func (fl *FunctionLiteral) String() string {
 
 	return out.String()
 }
+
+// CallExpression - defines calls of expressions
+// <expression>(<comma separated expressions>)
+type CallExpression struct {
+	// the `(` token
+	Token token.Token
+
+	Function Expression
+	Arguments []Expression
+}
+
+func (ce *CallExpression) expressionNode() {}
+
+// TokenLiteral - returns the literal value of the associated node
+func (ce *CallExpression) TokenLiteral() string {
+	return ce.Token.Literal
+}
+
+// String - returns string representation of the expression
+func (ce *CallExpression) String() string {
+	var out bytes.Buffer
+
+	args := []string{}
+
+	for _, a := range ce.Arguments {
+		args = append(args, a.String())
+	}
+
+	out.WriteString(ce.Function.String())
+	out.WriteString("(")
+	out.WriteString(strings.Join(args, ", "))
+	out.WriteString(")")
+
+	return out.String()
+}

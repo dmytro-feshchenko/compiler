@@ -34,6 +34,8 @@ Supports two operators: `!` and `-`
 - [x] Infix operators `<expression><infix operator><expression>`, e.g. `5 + 10`, `2 - 8`  
 Supports 8 operators: `+`, `-`, `*`, `/`, `<`, `>`, `==`, `!=`
 - [x] Working with operations precedences
+- [x] Parsing function literals: `function(x, y) {}`
+- [x] Call expressions: `<expression>(<comma separated expressions>)`
 
 ##### Samples:
 * `let` statement
