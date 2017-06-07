@@ -5,6 +5,7 @@ import (
 	"bytes"
 
 	"github.com/technoboom/compiler/token"
+	"strings"
 )
 
 // Node - each node in AST should implements this interface
@@ -294,6 +295,43 @@ func (bs *BlockStatement) String() string {
 	for _, s := range bs.Statements {
 		out.WriteString(s.String())
 	}
+
+	return out.String()
+}
+
+// FunctionLiteral - represents functions
+type FunctionLiteral struct {
+	// The 'function' token
+	Token token.Token
+
+	Parameters []*Identifier
+	Body *BlockStatement
+}
+
+
+func (fl *FunctionLiteral) expressionNode() {}
+
+// TokenLiteral - returns the literal value of the associated node
+func (fl *FunctionLiteral) TokenLiteral() string {
+	return fl.Token.Literal
+}
+
+// String - returns string representation of the expression
+func (fl *FunctionLiteral) String() string {
+	var out bytes.Buffer
+
+	params := []string{}
+
+	// collect all parameters of function as strings
+	for _, p := range fl.Parameters {
+		params = append(params, p.String())
+	}
+
+	out.WriteString(fl.TokenLiteral())
+	out.WriteString("(")
+	out.WriteString(strings.Join(params, ", "))
+	out.WriteString(")")
+	out.WriteString(fl.Body.String())
 
 	return out.String()
 }
