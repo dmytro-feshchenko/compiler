@@ -9,6 +9,7 @@ const (
 	INTEGER_OBJ = "INTEGER"
 	BOOLEAN_OBJ = "BOOLEAN"
 	NULL_OBJ = "NULL"
+	RETURN_VALUE_OBJ = "RETURN_VALUE"
 )
 
 // Object - interface for representing types objects
@@ -58,4 +59,19 @@ func (n *Null) Inspect() string {
 // Type - returns type of the object
 func (n *Null) Type() ObjectType {
 	return NULL_OBJ
+}
+
+// ReturnValue - object that contains return value of function
+type ReturnValue struct {
+	Value Object
+}
+
+// Type - returns type of the object
+func (rv *ReturnValue) Type() ObjectType {
+	return RETURN_VALUE_OBJ
+}
+
+// Inspect - shows value of the object
+func (rv *ReturnValue) Inspect() string {
+	return rv.Value.Inspect()
 }

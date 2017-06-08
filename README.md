@@ -76,10 +76,16 @@ Sample of REPL:
 MacBook-Pro:compiler myuser$ go run main.go
 Hello myuser! Starting Beaver REPL...
 REPL (use Beaver commands):
-beaver>>1
-1
-beaver>>2000
-2000
+beaver>>1 + 100
+101
+beaver>>true == false
+false
+beaver>>(2 + 10) * (5 + 1)
+72
+beaver>>if (10 > 100) { true } else { false }
+false
+beaver>>if (true) { 100 / 5 }
+20
 beaver>>let x 12 * 3
 
      __________
@@ -106,6 +112,7 @@ expected next token to be '=', got 'INT' instead
 - [x] Can evaluate infix expressions for comparing: `==`, `!=`, `>`, `<`
 - [x] Can evaluate conditionals:  
 `if (conditional) { consequence }` or `if (conditional) { consequence } else { alternative }`
+- [x] Can evaluate return statements
 - [ ] Can evaluate functions calls
 
 ### Types:
