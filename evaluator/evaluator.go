@@ -5,6 +5,12 @@ import (
 	"github.com/technoboom/compiler/object"
 )
 
+var (
+	NULL = &object.Null{}
+	TRUE = &object.Boolean{Value:true}
+	FALSE = &object.Boolean{Value:false}
+)
+
 // Eval - evaluates current node (traverses AST)
 func Eval(node ast.Node) object.Object {
 	switch node := node.(type) {
@@ -17,7 +23,10 @@ func Eval(node ast.Node) object.Object {
 	case *ast.IntegerLiteral:
 		return &object.Integer{Value: node.Value}
 	case *ast.Boolean:
-		return &object.Boolean{Value: node.Value}
+		return nativeBoolToBooleanObject(node.Value)
+	case *ast.PrefixExpression:
+		right := Eval(node.Right)
+		return evalPrefixExpression(node.Operator, right)
 	}
 	return nil
 }
@@ -32,4 +41,39 @@ func evalStatements(stmts []ast.Statement) object.Object {
 	}
 
 	return result
+}
+
+// nativeBoolToBooleanObject - transforms bool variable into object.Object
+// structure. This method used to increase performance (because we won't need
+// to manually transform bool to object each time we need this)
+func nativeBoolToBooleanObject(input bool) *object.Boolean {
+	if input {
+		return TRUE
+	}
+	return FALSE
+}
+
+// evalPrefixExpression - contains switch to decide how to evaluate expression
+// with prefix structure
+func evalPrefixExpression(operator string, right object.Object) object.Object {
+	switch operator {
+	case "!":
+		return evalBangOperatorExpression(right)
+	default:
+		return NULL
+	}
+}
+
+// evalBangOperatorExpression - evaluates prefix expression with `!` operator
+func evalBangOperatorExpression(right object.Object) object.Object {
+	switch right {
+	case TRUE:
+		return FALSE
+	case FALSE:
+		return TRUE
+	case NULL:
+		return TRUE
+	default:
+		return FALSE
+	}
 }

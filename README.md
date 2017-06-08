@@ -100,7 +100,7 @@ expected next token to be '=', got 'INT' instead
 - [x] Just evaluates statements and expressions in a while
 - [x] Can evaluate integers expressions
 - [x] Can evaluate boolean expressions
-- [ ] Can evaluate null
+- [x] Can evaluate null
 - [ ] Can evaluate prefix expressions
 - [ ] Can evaluate infix expressions
 
