@@ -101,7 +101,7 @@ expected next token to be '=', got 'INT' instead
 - [x] Can evaluate integers expressions
 - [x] Can evaluate boolean expressions
 - [x] Can evaluate null
-- [ ] Can evaluate prefix expressions
+- [x] Can evaluate prefix expressions: `!`, `-`
 - [ ] Can evaluate infix expressions
 
 ### Types:
