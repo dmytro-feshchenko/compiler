@@ -103,7 +103,7 @@ expected next token to be '=', got 'INT' instead
 - [x] Can evaluate null
 - [x] Can evaluate prefix expressions: `!`, `-`
 - [x] Can evaluate infix expressions for integers: `+`, `-`, `*`, `/`
-- [ ] Can evaluate infix expressions for comparing: `==`, `!=`, `>`, `<`
+- [x] Can evaluate infix expressions for comparing: `==`, `!=`, `>`, `<`
 
 ### Types:
 - [x] Integers
