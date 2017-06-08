@@ -104,6 +104,9 @@ expected next token to be '=', got 'INT' instead
 - [x] Can evaluate prefix expressions: `!`, `-`
 - [x] Can evaluate infix expressions for integers: `+`, `-`, `*`, `/`
 - [x] Can evaluate infix expressions for comparing: `==`, `!=`, `>`, `<`
+- [x] Can evaluate conditionals:  
+`if (conditional) { consequence }` or `if (conditional) { consequence } else { alternative }`
+- [ ] Can evaluate functions calls
 
 ### Types:
 - [x] Integers
