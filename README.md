@@ -98,7 +98,11 @@ expected next token to be '=', got 'INT' instead
 
 #### Evaluator:
 - [x] Just evaluates statements and expressions in a while
-- [x] Can evaluate integers
+- [x] Can evaluate integers expressions
+- [x] Can evaluate boolean expressions
+- [ ] Can evaluate null
+- [ ] Can evaluate prefix expressions
+- [ ] Can evaluate infix expressions
 
 ### Types:
 - [x] Integers
