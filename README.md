@@ -86,6 +86,14 @@ beaver>>if (10 > 100) { true } else { false }
 false
 beaver>>if (true) { 100 / 5 }
 20
+beaver>>let x = 10;
+beaver>>x  
+10
+beaver>>let y = true;
+beaver>>y
+true
+beaver>>if (x == y) { return x; } else { return y; }
+true
 beaver>>let x 12 * 3
 
      __________
@@ -116,7 +124,8 @@ expected next token to be '=', got 'INT' instead
 - [x] Error Handling
 - [x] Binding & Environments
 - [x] Evaluates let statements (using environment)
-- [ ] Can evaluate functions calls
+- [x] Can evaluate functions calls, functions assigning
+- [x] Closures
 
 ### Types:
 - [x] Integers

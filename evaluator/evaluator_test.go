@@ -267,3 +267,59 @@ func TestLetStatements(t *testing.T) {
 		testIntegerObject(t, testEval(tt.input), tt.expected)
 	}
 }
+
+func TestFunctionObject(t *testing.T) {
+	input := "function (a, b) { return a * b; }"
+
+	evaluated := testEval(input)
+
+	fn, ok := evaluated.(*object.Function)
+	if !ok {
+		t.Fatalf("fn is not Function object, got=%T (%+v)", fn, fn)
+	}
+	if len(fn.Parameters) != 2 {
+		t.Fatalf("function has wrong parameters, Parameters=%+v",
+			fn.Parameters)
+	}
+	if fn.Parameters[0].String() != "a" {
+		t.Fatalf("fn.Parameters[0] is not 'a', got=%q", fn.Parameters[0])
+	}
+	if fn.Parameters[1].String() != "b" {
+		t.Fatalf("fn.Parameters[1] is not 'b', got=%q", fn.Parameters[1])
+	}
+
+	expectedBody := "return (a * b);"
+	if fn.Body.String() != expectedBody {
+		t.Fatalf("body is not %q, got=%q", expectedBody, fn.Body.String())
+	}
+}
+
+func TestFunctionApplication(t *testing.T) {
+	tests := []struct{
+		input string
+		expected int64
+	}{
+		{"let identity = function(x) { return x; }; identity(5);", 5},
+		{"let double = function(x) { return x * 2; }; double(5);", 10},
+		{"let add = function(x, y) { return x + y; }; add(5, -20);", -15},
+		{"let add = function(x, y) { return x + y; }; add(5 + 10, add(2, 4));", 21},
+		{"function(x) { return x; }(5);", 5},
+	}
+
+	for _, tt := range tests {
+		testIntegerObject(t, testEval(tt.input), tt.expected)
+	}
+}
+
+func TestClosures(t *testing.T) {
+	input := `
+		let newAdder = function(x) {
+			return function (y) { return y + x; }
+		};
+
+		let addTwo = newAdder(2);
+		return addTwo(2);
+	`
+
+	testIntegerObject(t, testEval(input), 4)
+}

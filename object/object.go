@@ -1,6 +1,11 @@
 package object
 
-import "fmt"
+import (
+	"fmt"
+	"github.com/technoboom/compiler/ast"
+	"bytes"
+	"strings"
+)
 
 // ObjectType - represents type of object
 type ObjectType string
@@ -11,6 +16,7 @@ const (
 	NULL_OBJ = "NULL"
 	RETURN_VALUE_OBJ = "RETURN_VALUE"
 	ERROR_OBJ = "ERROR"
+	FUNCTION_OBJ = "FUNCTION"
 )
 
 // Object - interface for representing types objects
@@ -92,27 +98,37 @@ func (e *Error) Inspect() string {
 	return e.Message
 }
 
-// NewEnvironment - creates new environment and returns it
-func NewEnvironment() *Environment {
-	s := make(map[string]Object)
-
-	return &Environment{store: s}
+// Function - represents function structure
+type Function struct {
+	// parameters of the function
+	Parameters []*ast.Identifier
+	// statements inside block statement of the function
+	Body *ast.BlockStatement
+	// environment variables
+	Env *Environment
 }
 
-// Environment - stores variables objects
-type Environment struct {
-	store map[string]Object
+// Type - returns type of the object
+func (f *Function) Type() ObjectType {
+	return FUNCTION_OBJ
 }
 
-// Get - returns variable from environment
-func (e *Environment) Get(name string) (Object, bool) {
-	obj, ok := e.store[name]
-	return obj, ok
-}
+// Inspect - shows value of the object
+func (f *Function) Inspect() string {
+	var out bytes.Buffer
 
-// Set - creates variable in environment if not exists
-// otherwise replaces variable value
-func (e *Environment) Set(name string, value Object) Object {
-	e.store[name] = value
-	return value
+	params := []string{}
+
+	for _, p := range f.Parameters {
+		params = append(params, p.String())
+	}
+
+	out.WriteString("function")
+	out.WriteString("(")
+	out.WriteString(strings.Join(params, ", "))
+	out.WriteString(") {\n")
+	out.WriteString(f.Body.String())
+	out.WriteString("\n}")
+
+	return out.String()
 }
