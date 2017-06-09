@@ -10,6 +10,7 @@ const (
 	BOOLEAN_OBJ = "BOOLEAN"
 	NULL_OBJ = "NULL"
 	RETURN_VALUE_OBJ = "RETURN_VALUE"
+	ERROR_OBJ = "ERROR"
 )
 
 // Object - interface for representing types objects
@@ -74,4 +75,19 @@ func (rv *ReturnValue) Type() ObjectType {
 // Inspect - shows value of the object
 func (rv *ReturnValue) Inspect() string {
 	return rv.Value.Inspect()
+}
+
+// Error - structure that stores error messages for error handling
+type Error struct {
+	Message string
+}
+
+// Type - returns type of the object
+func (e *Error) Type() ObjectType {
+	return ERROR_OBJ
+}
+
+// Inspect - shows value of the object
+func (e *Error) Inspect() string {
+	return e.Message
 }

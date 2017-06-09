@@ -113,6 +113,7 @@ expected next token to be '=', got 'INT' instead
 - [x] Can evaluate conditionals:  
 `if (conditional) { consequence }` or `if (conditional) { consequence } else { alternative }`
 - [x] Can evaluate return statements
+- [x] Error Handling
 - [ ] Can evaluate functions calls
 
 ### Types:
