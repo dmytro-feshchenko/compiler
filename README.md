@@ -114,6 +114,8 @@ expected next token to be '=', got 'INT' instead
 `if (conditional) { consequence }` or `if (conditional) { consequence } else { alternative }`
 - [x] Can evaluate return statements
 - [x] Error Handling
+- [x] Binding & Environments
+- [x] Evaluates let statements (using environment)
 - [ ] Can evaluate functions calls
 
 ### Types:

@@ -9,6 +9,7 @@ import (
 	"github.com/technoboom/compiler/lexer"
 	"github.com/technoboom/compiler/parser"
 	"github.com/technoboom/compiler/evaluator"
+	"github.com/technoboom/compiler/object"
 )
 
 // PROMPT - the message that leads each line of the REPL
@@ -32,6 +33,7 @@ const BEAVER = `
 // converts input into tokens and prints them all
 func Start(in io.Reader, out io.Writer) {
 	scanner := bufio.NewScanner(in)
+	env := object.NewEnvironment()
 
 	for {
 		// print the prompt
@@ -51,7 +53,7 @@ func Start(in io.Reader, out io.Writer) {
 			continue
 		}
 
-		evaluated := evaluator.Eval(program)
+		evaluated := evaluator.Eval(program, env)
 
 		if evaluated != nil {
 			io.WriteString(out, evaluated.Inspect())

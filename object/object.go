@@ -91,3 +91,28 @@ func (e *Error) Type() ObjectType {
 func (e *Error) Inspect() string {
 	return e.Message
 }
+
+// NewEnvironment - creates new environment and returns it
+func NewEnvironment() *Environment {
+	s := make(map[string]Object)
+
+	return &Environment{store: s}
+}
+
+// Environment - stores variables objects
+type Environment struct {
+	store map[string]Object
+}
+
+// Get - returns variable from environment
+func (e *Environment) Get(name string) (Object, bool) {
+	obj, ok := e.store[name]
+	return obj, ok
+}
+
+// Set - creates variable in environment if not exists
+// otherwise replaces variable value
+func (e *Environment) Set(name string, value Object) Object {
+	e.store[name] = value
+	return value
+}
