@@ -17,6 +17,7 @@ const (
 	RETURN_VALUE_OBJ = "RETURN_VALUE"
 	ERROR_OBJ = "ERROR"
 	FUNCTION_OBJ = "FUNCTION"
+	STRING_OBJ = "STRING"
 )
 
 // Object - interface for representing types objects
@@ -131,4 +132,19 @@ func (f *Function) Inspect() string {
 	out.WriteString("\n}")
 
 	return out.String()
+}
+
+// String - represents string type
+type String struct {
+	Value string
+}
+
+// Type - returns type of the object
+func (s *String) Type() ObjectType {
+	return STRING_OBJ
+}
+
+// Inspect - shows value of the object
+func (s *String) Inspect() string {
+	return s.Value
 }

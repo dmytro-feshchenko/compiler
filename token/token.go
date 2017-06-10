@@ -73,6 +73,9 @@ const (
 	ELSE = "ELSE"
 	// RETURN - return keyword for the function
 	RETURN = "RETURN"
+
+	// STRING - string data type
+	STRING = "STRING"
 )
 
 // Type - contains token type

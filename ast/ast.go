@@ -370,3 +370,21 @@ func (ce *CallExpression) String() string {
 
 	return out.String()
 }
+
+// StringLiteral - represents strings
+type StringLiteral struct {
+	Token token.Token
+	Value string
+}
+
+func (sl *StringLiteral) expressionNode() {}
+
+// TokenLiteral - returns the literal value of the associated node
+func (sl *StringLiteral) TokenLiteral() string {
+	return sl.Token.Literal
+}
+
+// String - returns string representation of the expression
+func (sl *StringLiteral) String() string {
+	return sl.Token.Literal
+}

@@ -91,6 +91,9 @@ func (l *Lexer) NextToken() token.Token {
 		tok = newToken(token.COMMA, l.character)
 	case '|':
 		tok = newToken(token.OR, l.character)
+	case '"':
+		tok.Type = token.STRING
+		tok.Literal = l.readString()
 	case 0:
 		tok.Literal = ""
 		tok.Type = token.EOF
@@ -144,6 +147,21 @@ func (l *Lexer) readNumber() string {
 	return l.input[position:l.position]
 }
 
+
+// readString - reads string until double quote will not be met
+func (l *Lexer) readString() string {
+	position := l.position + 1
+	for {
+		l.readChar()
+		if l.character == '"' {
+			break
+		}
+	}
+	return l.input[position:l.position]
+}
+
+// pickChar - picks one character if the position of carriage
+// is not out of input len
 func (l *Lexer) pickChar() byte {
 	if l.readPosition >= len(l.input) {
 		return 0

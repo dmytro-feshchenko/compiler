@@ -9,18 +9,19 @@ own compiler. To see other resources I used within the project, see the <a href=
 
 ## Done features
 #### Lexer:
-* Parses all the input until the end of the input
-* Can recognize identifiers: e.g. `hello_world`
-* Ignores whitespaces
-* Added numbers (integers only): e.g. `246`
-* Added keywords: `let`, `function`
-* Added operators: `+`, `-`, `*`, `/`, `<`, `>`, `|`
-* Added comparison and logical operators: `==`, `!=`
-* Brackets and parenthesis support: `{}`, `()`
-* Added keywords: `if`, `else`, `return`
-* Recognizes comma and semicolon: `,`, `;`
-* Recognizes EOF
-* All not recognized symbols are ILLEGAL tokens: e.g. `$`
+- [x] Parses all the input until the end of the input
+- [x] Can recognize identifiers: e.g. `hello_world`
+- [x] Ignores whitespaces
+- [x] Added numbers (integers only): e.g. `246`
+- [x] Added keywords: `let`, `function`
+- [x] Added operators: `+`, `-`, `*`, `/`, `<`, `>`, `|`
+- [x] Added comparison and logical operators: `==`, `!=`
+- [x] Brackets and parenthesis support: `{}`, `()`
+- [x] Added keywords: `if`, `else`, `return`
+- [x] Recognizes comma and semicolon: `,`, `;`
+- [x] Recognizes EOF
+- [x] All not recognized symbols are ILLEGAL tokens: e.g. `$`
+- [x] Works with strings: `"hello"`
 
 #### Parser
 We used "top down operator precedence" parser, also known as "Pratt parser"
@@ -36,6 +37,7 @@ Supports 8 operators: `+`, `-`, `*`, `/`, `<`, `>`, `==`, `!=`
 - [x] Working with operations precedences
 - [x] Parsing function literals: `function(x, y) {}`
 - [x] Call expressions: `<expression>(<comma separated expressions>)`
+- [x] Works with strings: `"hello"`
 
 ##### Samples:
 * `let` statement
@@ -94,6 +96,9 @@ beaver>>y
 true
 beaver>>if (x == y) { return x; } else { return y; }
 true
+beaver>>let hi = "hello, world"
+beaver>>hi
+hello, world
 beaver>>let x 12 * 3
 
      __________
@@ -131,6 +136,9 @@ expected next token to be '=', got 'INT' instead
 - [x] Integers
 - [x] Booleans
 - [x] Null
+- [x] Strings
+- [ ] Arrays
+- [ ] Objects
 
 ## Planned features
 * C-like syntax
@@ -194,6 +202,12 @@ let camelCase = true;
 let UpperCamelCase = false;
 ```
 
+Currently, Beaver language has 4 data types:  
+* integers: `let myInt = 1000;`
+* booleans: `let myBool = false;`
+* strings: `let str = "hello, my dear friend"`
+* null
+
 ### Functions
 The keyword `function` used for defining functions.
 ```
@@ -202,15 +216,33 @@ let multiply = function(a, b) {
 }
 ```
 Each function returns the last executed sentence.
-In the sample above, the result of multiplication will be returned.
+In the sample above, the result of multiplication will be returned.  
+Functions can be assigned to variables, passed as arguments to other
+functions, or can be returned by them.  
+Closures also works.
+```
+let newAdder = function(x) {
+    return function (y) { return y + x; }
+};
+
+let addTwo = newAdder(2);
+return addTwo(2);
+```
+This sample will produce `4`. 
 
 ### Conditions
-In Beaver we can use keywords `if` nad `else` to work with conditionals
+In Beaver we can use keywords `if` and `else` to work with conditionals
 ```
 if (temperature > 0) {
     // it's hot enough
 } else {
     // you can mold snowballs
+}
+```
+Alternative is optional and you can you `if` even like:
+```
+if (temperature < 40) {
+    // stop, it's really cold here
 }
 ```
 
@@ -227,6 +259,9 @@ if (column != 1) {
     // ignore the column
 }
 ```
+List of available operators:
+* Arithmetic: `+`, `-`, `*`, `/`
+* Comparing: `==`, `!=`, `>`, `<`
 
 ## Intro into building compiler/interpreter:
 Whether you are building an interpreter or a compiler most of the steps remain the same. The most common, basic steps are:

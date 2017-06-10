@@ -6,7 +6,7 @@ import (
 	"github.com/technoboom/compiler/token"
 )
 
-func TestNewToken(t *testing.T) {
+func TestNextToken(t *testing.T) {
 	input := `let five = 5;
 	let ten = 10;
 
@@ -28,6 +28,8 @@ func TestNewToken(t *testing.T) {
 	} else if (true != 1) {
 		return true;
 	}
+	"hello"
+	"hello, world!"
 	`
 	tests := []struct {
 		expectedType    token.Type
@@ -138,6 +140,8 @@ func TestNewToken(t *testing.T) {
 		{token.TRUE, "true"},
 		{token.SEMICOLON, ";"},
 		{token.RBRACKET, "}"},
+		{token.STRING, "hello"},
+		{token.STRING, "hello, world!"},
 
 		{token.EOF, ""},
 	}

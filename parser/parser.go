@@ -72,6 +72,7 @@ func New(l *lexer.Lexer) *Parser {
 
 	p.registerPrefix(token.IF, p.parseIfExpression)
 	p.registerPrefix(token.FUNCTION, p.parseFunctionLiteral)
+	p.registerPrefix(token.STRING, p.parseStringLiteral)
 
 	// parsing infix expressions ("leds" - "left denotations")
 	p.infixParseFns = make(map[token.Type]infixParseFn)
@@ -476,4 +477,10 @@ func (p *Parser) parseCallArguments() []ast.Expression {
 	}
 
 	return args
+}
+
+// parseStringLiteral - parses string literal expression and returns
+// StringLiteral object
+func (p *Parser) parseStringLiteral() ast.Expression {
+	return &ast.StringLiteral{Token:p.curToken, Value:p.curToken.Literal}
 }
